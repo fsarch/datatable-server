@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { TDataTable } from "../../models/dbo/datatable.type.js";
 import { ConfigService } from "@nestjs/config";
 import Joi from "joi";
-import { TDataTable } from "../../models/dbo/datatable.type.js";
 
 const BASE_MAPPING_SCHEMA = {
   name: Joi.string().required(),
@@ -80,7 +80,7 @@ export const DATATABLES_CONFIG_VALIDATOR = Joi.array().items(Joi.object({
 }));
 
 @Injectable()
-export class DatatablesService {
+export class DatatablesRepositoryService {
   private readonly datatablesConfig: Array<{
     value: TDataTable,
     meta: {
@@ -111,5 +111,9 @@ export class DatatablesService {
 
   public async List() {
     return this.datatablesConfig.map((datatable) => datatable.value);
+  }
+
+  public async Get(id: string) {
+    return (await this.List()).find(d => d.id === id);
   }
 }

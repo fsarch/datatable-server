@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { DatatablesService } from './datatables.service.js';
 import { DatatablesController } from './datatables.controller.js';
+import { DataModule } from './data/data.module.js';
+import { DatatablesRepositoryModule } from "../../repositories/datatables-repository/datatables-repository.module.js";
 
 @Module({
-  providers: [DatatablesService],
-  controllers: [DatatablesController]
+  controllers: [DatatablesController],
+  imports: [DataModule, DatatablesRepositoryModule],
 })
 export class DatatablesModule {}

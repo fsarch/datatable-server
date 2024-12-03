@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { FsarchModule } from './fsarch/fsarch.module.js';
 import { ControllersModule } from './controllers/controllers.module.js';
+import { RepositoriesModule } from './repositories/repositories.module.js';
 
 @Module({
   imports: [
@@ -8,6 +9,7 @@ import { ControllersModule } from './controllers/controllers.module.js';
       auth: {},
     }),
     ControllersModule,
+    RepositoriesModule,
   ],
   controllers: [],
   providers: [],

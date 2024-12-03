@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { DatatablesService } from "./datatables.service.js";
 import { DataTableDto } from "../../models/dto/datatable.model.js";
+import { DatatablesRepositoryService } from "../../repositories/datatables-repository/datatables-repository.service.js";
 
 @ApiTags('datatables')
 @Controller({
@@ -10,11 +10,11 @@ import { DataTableDto } from "../../models/dto/datatable.model.js";
 })
 @ApiBearerAuth()
 export class DatatablesController {
-  constructor(private readonly datatablesService: DatatablesService) {}
+  constructor(private readonly datatablesRepository: DatatablesRepositoryService) {}
 
   @Get()
   public async List(): Promise<Array<DataTableDto>> {
-    const data = await this.datatablesService.List();
+    const data = await this.datatablesRepository.List();
 
     return data.map(DataTableDto.FromDbo);
   }

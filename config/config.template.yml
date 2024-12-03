@@ -12,7 +12,7 @@ auth:
 datatables:
   - id: 'score-recent'
     name: 'Score-Based (recent)'
-    base_query:
+    data_source:
       type: 'fetch'
       url: 'https://my-data-source'
       auth:

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from "@nestjs/config";
 import Joi from "joi";
+import { TDataTable } from "../../models/dbo/datatable.type.js";
 
 const BASE_MAPPING_SCHEMA = {
   name: Joi.string().required(),
@@ -11,7 +12,7 @@ const BASE_MAPPING_SCHEMA = {
 export const DATATABLES_CONFIG_VALIDATOR = Joi.array().items(Joi.object({
   id: Joi.string().required(),
   name: Joi.string().required(),
-  base_query: Joi.object({
+  data_source: Joi.object({
     type: Joi.string().valid('fetch').required(),
     url: Joi.string().required(),
     auth: Joi.object({
@@ -77,74 +78,6 @@ export const DATATABLES_CONFIG_VALIDATOR = Joi.array().items(Joi.object({
     ]),
   ),
 }));
-
-type TDataTable = {
-  id: string;
-  name: string;
-  base_query: {
-    type: 'fetch',
-    url: string;
-    auth: {
-      type: 'basic';
-      username: string;
-      password: string;
-    };
-  };
-  mapping: Array<TDataTableMapping>;
-};
-
-type TDataTableBaseType = {
-  name: string;
-  selector: string;
-  required: boolean;
-  isIdentifier: boolean;
-};
-
-type TDataTableUuidMapping = TDataTableBaseType & {
-  type: 'uuid';
-};
-
-type TDataTableSelectMapping = TDataTableBaseType & {
-  type: 'select';
-  data_source: {
-    type: 'constant',
-    values: Array<{
-      value: string | number;
-      label: string;
-    }>;
-  }
-};
-
-type TDataTableIntegerMapping = TDataTableBaseType & {
-  type: 'integer';
-};
-
-type TDataTableDateTimeMapping = TDataTableBaseType & {
-  type: 'date-time';
-};
-
-type TDataTableStringMapping = TDataTableBaseType & {
-  type: 'string';
-};
-
-type TDataTableDecimalMapping = TDataTableBaseType & {
-  type: 'decimal';
-  display?: {
-    type: 'percentage-colored',
-    maxValue: number;
-    steps: [{
-      color: string;
-      value?: number;
-    }];
-  }
-};
-
-type TDataTableMapping = TDataTableUuidMapping
-  | TDataTableSelectMapping
-  | TDataTableIntegerMapping
-  | TDataTableDateTimeMapping
-  | TDataTableStringMapping
-  | TDataTableDecimalMapping;
 
 @Injectable()
 export class DatatablesService {

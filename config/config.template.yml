@@ -1,0 +1,60 @@
+uac:
+  type: 'static'
+  users:
+    - user_id: 'abcdef'
+      permissions:
+        - manage_claims
+
+auth:
+  type: 'jwt-jwk'
+  jwkUrl: ''
+
+datatables:
+  - id: 'score-recent'
+    name: 'Score-Based (recent)'
+    base_query:
+      type: 'fetch'
+      url: 'https://my-data-source'
+      auth:
+        type: 'basic'
+        username: 'admin'
+        password: 'admin'
+    mapping:
+      - name: 'id'
+        selector: 'Id'
+        isIdentifier: true
+        type: 'uuid'
+      - name: 'type'
+        selector: 'Type'
+        type: 'select'
+        data_source:
+          type: 'constant'
+          values:
+            - value: 1
+              label: 'First Selectable Type'
+            - value: 2
+              label: 'Second Selectable Type'
+      - name: 'name'
+        selector: 'Name'
+        type: 'string'
+      - name: 'sort'
+        selector: 'Sort'
+        type: 'integer'
+      - name: 'creationTime'
+        type: 'date-time'
+        selector: 'CreationTime'
+      - name: 'price'
+        selector: 'Price'
+        type: 'decimal'
+      - name: 'score'
+        selector: 'Score'
+        type: 'decimal'
+        display:
+          type: 'percentage-colored'
+          maxValue: 1
+          steps:
+            - color: '#FF0000'
+            - value: 0.5
+              color: '#FFFF00'
+            - value: 1
+              color: '#00FF00'

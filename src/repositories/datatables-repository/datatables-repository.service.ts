@@ -21,6 +21,15 @@ export const DATATABLES_CONFIG_VALIDATOR = Joi.array().items(Joi.object({
       password: Joi.string().required(),
     }).required(),
   }).required(),
+  update_target: Joi.object({
+    type: Joi.string().valid('fetch').required(),
+    url: Joi.string().required(),
+    auth: Joi.object({
+      type: Joi.string().valid('basic').required(),
+      username: Joi.string().required(),
+      password: Joi.string().required(),
+    }).required(),
+  }).required(),
   mapping: Joi.array().items(
     Joi.alternatives([
       Joi.object({

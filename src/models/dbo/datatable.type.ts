@@ -10,6 +10,15 @@ export type TDataTable = {
       password: string;
     };
   };
+  update_target: {
+    type: 'fetch',
+    url: string;
+    auth: {
+      type: 'basic';
+      username: string;
+      password: string;
+    };
+  };
   mapping: Array<TDataTableMapping>;
 };
 

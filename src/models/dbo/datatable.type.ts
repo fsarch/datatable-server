@@ -26,7 +26,8 @@ export type TDataTableBaseMappingType = {
   name: string;
   selector: string;
   required: boolean;
-  isIdentifier: boolean;
+  is_identifier?: boolean;
+  is_editable?: boolean;
 };
 
 export type TDataTableUuidMapping = TDataTableBaseMappingType & {

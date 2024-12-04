@@ -6,7 +6,8 @@ import Joi from "joi";
 const BASE_MAPPING_SCHEMA = {
   name: Joi.string().required(),
   selector: Joi.string().required(),
-  isIdentifier: Joi.boolean(),
+  is_identifier: Joi.boolean(),
+  is_editable: Joi.boolean(),
 };
 
 export const DATATABLES_CONFIG_VALIDATOR = Joi.array().items(Joi.object({
@@ -112,7 +113,7 @@ export class DatatablesRepositoryService {
       value: datatable,
       meta: {
         identifier: datatable.mapping
-          .filter((m) => m.isIdentifier)
+          .filter((m) => m.is_identifier)
           .map((m) => m.selector)
       },
     }));

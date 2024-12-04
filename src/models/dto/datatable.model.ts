@@ -75,7 +75,8 @@ export class DataTableConstantDataSourceDto {
 
 export class DataTableBaseMappingDto {
   public static applyProperties<T extends DataTableBaseMappingDto>(dto: T, dbo: TDataTableBaseMappingType): T {
-    dto.isIdentifier = dbo.isIdentifier;
+    dto.isIdentifier = dbo.is_identifier;
+    dto.isEditable = dbo.is_editable;
     dto.name = dbo.name;
     dto.selector = dbo.selector;
 
@@ -90,6 +91,9 @@ export class DataTableBaseMappingDto {
 
   @ApiProperty()
   public isIdentifier: boolean;
+
+  @ApiProperty()
+  public isEditable: boolean;
 }
 
 export class DataTableUuidMappingDto extends DataTableBaseMappingDto {
